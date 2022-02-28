@@ -6,6 +6,8 @@ temp_list = r.json()
 c = {}
 f = open('test5.json', 'w')
 
+#Let us assume we made a change
+
 for i in temp_list:
     f.write("{\n")
     f.write(f"   \"userID\": {i.get('userId', 0)}, \n")
