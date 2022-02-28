@@ -1,27 +1,12 @@
 import requests
 
-r = requests.get("https://jsonplaceholder.typicode.com/posts")
-print(r.json())
-temp_list = r.json()
-c = {}
-f = open('test5.json', 'w')
+r = requests.get("https://jsonplaceholder.typicode.com/posts/1/comments")
 
-#Let us assume we made a change
+posts = r.json()
+res = []
 
-for i in temp_list:
-    f.write("{\n")
-    f.write(f"   \"userID\": {i.get('userId', 0)}, \n")
-    f.write(f"   \"id\": {i.get('id', 0)}, \n")
-    f.write(f"   \"title\": \"{i.get('title', 0)}\", \n")
-    tmp_str = i.get('body', "")
-    new_str = tmp_str.replace("\n", " ")
+for post in posts:
+    res.append([post.get("email"), post.get("body")])
 
-    f.write(f"   \"body\": \"{new_str}\" \n")
-    f.write("},\n")
-    #print(i[id])
-    cur_id = i.get('userId', 0)
-    if cur_id not in c:
-        c[cur_id] = 1
-    else:
-        c[cur_id] += 1
-f.close()
+for r in res:
+    print(r)
