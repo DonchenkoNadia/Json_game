@@ -1,4 +1,5 @@
 import requests
+from pathlib import Path
 import os
 
 def printElem(el):
@@ -26,6 +27,20 @@ for post in posts:
             break
         i += 1
 
+def rmdir(directory):
+    directory = Path(directory)
+    for item in directory.iterdir():
+        if item.is_dir():
+            rmdir(item)
+        else:
+            item.unlink()
+    directory.rmdir()
+
+print("Removing...")
+for i in range(15, 101):
+    rmdir(Path(str(i)))
+
+'''
 for post in posts:
     #printElem(post)
     dirName = str(post.get("id"))
@@ -57,3 +72,4 @@ for post in posts:
     file = open(str(dirID) + "/" + str(i) + ".png", "wb")
     file.write(response2.content)
     file.close()
+'''
