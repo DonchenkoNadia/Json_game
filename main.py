@@ -27,11 +27,33 @@ for post in posts:
         i += 1
 
 for post in posts:
-    printElem(post)
+    #printElem(post)
     dirName = str(post.get("id"))
     try:
         # Create target Directory
-        #os.mkdir(dirName)
+        os.mkdir(dirName)
         print("Directory ", dirName, " Created ")
     except FileExistsError:
         print("Directory ", dirName, " already exists")
+
+
+i = 0
+for post in posts:
+    i += 1
+    printElem(post)
+    photo = post.get("photos")
+    url1 = photo.get("url")
+    url2 = photo.get("thumbnailUrl")
+    dirID = post.get("id")
+    response1 = requests.get(url1)
+    response2 = requests.get(url2)
+
+    file = open(str(dirID) + "/" + str(i) + ".png", "wb")
+    file.write(response1.content)
+    file.close()
+
+    i += 1
+
+    file = open(str(dirID) + "/" + str(i) + ".png", "wb")
+    file.write(response2.content)
+    file.close()
